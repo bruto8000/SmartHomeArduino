@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"> </script>
+
+    <input type="text" class="main main_input" id="inpt">
+    <button class="main" id="btn">SEND MESSAGE</button>
+    
+   <div class="svet">
+      <img src="b0.png" id="btn_svetid" alt="">
+     
+    
+    </div>
+
+    <img src="b1.png" style="display: none;" alt="">
+   
+    
+    
+    <style>
+    .main{
+        display: block;
+        width: 80%;
+        height: 60px;
+        margin: auto;
+        margin-top: 20px;
+      
+        background-color: rgb(96, 172, 207);
+        border-radius: 10px;
+        outline: none;
+        border: none;
+        font-size: 2rem;
+    }
+    .main_input{
+        padding: 20px;
+    }
+    
+    button:active{
+        font-size: 1.5rem;
+    }
+
+    .svet{
+        display: block;
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        margin-top: 70px;
+       
+    }
+  
+    .svet img{
+
+        width: 40%;
+       
+    }
+    </style>
+
+   <script>
+
+let btn_svet = document.getElementById('btn_svetid');
+let btn = document.getElementById('btn')
+let text = document.getElementById('inpt')
+
+btn.onclick = function() {
+send_msg(text.value);
+text.value = '';
+}
+
+
+
+
+
+
+
+btn_svet.onclick = function() {
+
+if(btn_svet.src.includes( "b0.png")){
+    btn_svet.src = "/b1.png";
+   
+    console.log('Svet was 0')
+    send_svet("1");
+    return;
+}else{ 
+    btn_svet.src = "/b0.png"}
+  
+console.log('Svet was 1')
+send_svet("0");
+}
+
+function send_msg(msg){
+$.ajax({
+  type: 'POST',
+  url: '/m',
+  data: msg,
+  success: function(data){
+   console.log(msg)
+  }
+
+});
+}
+
+
+
+function send_svet(s){
+$.ajax({
+  type: 'POST',
+  url: '/s',
+  data: s,
+  success: function(data){
+   console.log('OK GOOD!')
+  }
+
+});
+}
+
+
+
+
+
+
+
+    </script>
+
+
+</body>
+</html>
